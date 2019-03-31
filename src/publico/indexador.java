@@ -33,6 +33,7 @@ public class indexador {
 
         } else if (dirPrincipal.equals("C") || dirPrincipal.equals("D") || dirPrincipal.equals("E")) {
             System.out.println("Sistema Operacional Windows");
+             listarArquivos(dirPrincipal + ":\\");
         }
 
     }
