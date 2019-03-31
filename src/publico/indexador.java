@@ -21,7 +21,7 @@ public class indexador {
     private void iniciar() {
 
         File caminho = new File(this.getClass().getPackage().toString());
-
+        
         System.out.println("Caminho principal: " + caminho.getAbsolutePath());
 
         char caracter = caminho.getAbsolutePath().charAt(0);
@@ -33,7 +33,7 @@ public class indexador {
 
         } else if (dirPrincipal.equals("C") || dirPrincipal.equals("D") || dirPrincipal.equals("E")) {
             System.out.println("Sistema Operacional Windows");
-             listarArquivos(dirPrincipal + ":\\");
+             listarArquivosWindows(dirPrincipal + ":\\");
         }
 
     }
@@ -45,6 +45,30 @@ public class indexador {
      */
     private void listarArquivos(String caminho) {
         File file = new File(caminho);
+        File lista[];
+
+        if (file.isDirectory()) {
+            if (file.canRead()) {
+                lista = file.listFiles();
+                System.out.println("***************Caminho valido: '" + file.getAbsolutePath() + "'*************");
+                imprimirListaArquivos(lista);
+
+            } else {
+                System.out.println("Caminho: '" + file.getAbsolutePath() + "' não pode ser lido...");
+            }
+
+        } else {
+            //System.out.println("Caminho '" + file.getPath() + "' informado não é um diretorio");
+            System.out.println(file.getAbsolutePath());
+        }
+
+    }
+    
+    
+    
+     private void listarArquivosWindows(String caminho) {
+        File file = new File(caminho);
+        file.setReadable(Boolean.TRUE, Boolean.FALSE);
         File lista[];
 
         if (file.isDirectory()) {
