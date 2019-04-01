@@ -22,6 +22,14 @@ public class View extends javax.swing.JFrame {
         initComponents();
         File ca1 = new File("/");
         diretorios.add(ca1);
+        String os = System.getProperty("os.name");
+        String user = System.getProperty("user.name");
+        String dirPrincipal = System.getProperty("user.home");
+        String areaTrab = System.getProperty("user.dir");
+        System.out.println("OS: " + os);
+        System.out.println("usuario: " + user);
+        System.out.println("diretorio: " + dirPrincipal);
+        System.out.println("Area trabalho: " + areaTrab);
     }
 
     List<File> diretorios = new ArrayList<>();
@@ -158,7 +166,7 @@ public class View extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Parar indexador");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
