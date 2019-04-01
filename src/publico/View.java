@@ -26,6 +26,7 @@ public class View extends javax.swing.JFrame {
 
     List<File> diretorios = new ArrayList<>();
     int contador;
+    Thread threadLocal;
 
     private void iniciar() {
 
@@ -142,6 +143,7 @@ public class View extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         areaImpressao = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,6 +158,13 @@ public class View extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -164,7 +173,9 @@ public class View extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -172,6 +183,8 @@ public class View extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(jButton1)
+                .addGap(34, 34, 34)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,6 +215,17 @@ public class View extends javax.swing.JFrame {
         //index.listarArquivos("/");
         //listarArquivos("/");
 
+        threadLocal = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                 for (int i = 0; i <= contador; i++) {
+                    listarArquivos(diretorios1.get(contador).getAbsolutePath());
+                    contador++;
+                }
+            }
+        });
+        threadLocal.start();
+                /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -211,20 +235,15 @@ public class View extends javax.swing.JFrame {
                 }
 
             }
-        }).start();
-
-        // for (int i = 0; i <= contador; i++) {
-        //areaImpressao.append("contador " + contador + " diretorios " + diretorios1.get(contador).getAbsolutePath() + "\n");
-        //  if (!diretorios1.isEmpty()) {
-        // this.listarArquivos(diretorios1.get(i).getAbsolutePath());
-        //this.listarArquivos(diretorios1.get(contador).getAbsolutePath());
-        /* } else {
-                System.out.println("diretorio vazio");
-                iniciar();
-            }*/
-        // contador++;
-        // }
+        }).start(); 
+                */
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        threadLocal.stop();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,6 +283,7 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areaImpressao;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
