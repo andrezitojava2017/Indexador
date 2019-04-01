@@ -20,10 +20,12 @@ public class View extends javax.swing.JFrame {
      */
     public View() {
         initComponents();
+        File ca1 = new File("/");
+        diretorios.add(ca1);
     }
 
-    private final List<File> diretorios = new ArrayList<>();
-    private int contador;
+    List<File> diretorios = new ArrayList<>();
+    int contador;
 
     private void iniciar() {
 
@@ -61,7 +63,7 @@ public class View extends javax.swing.JFrame {
             if (file.canRead()) {
                 lista = file.listFiles();
                 areaImpressao.append("***************Caminho valido: '" + file.getAbsolutePath() + "'*************\n");
-                //System.out.println("***************Caminho valido: '" + file.getAbsolutePath() + "'*************");
+                // System.out.println("***************Caminho valido: '" + file.getAbsolutePath() + "'*************");
                 imprimirListaArquivos(lista);
 
             } else {
@@ -198,17 +200,30 @@ public class View extends javax.swing.JFrame {
 
         List<File> diretorios1 = this.diretorios;
         //index.listarArquivos("/");
+        //listarArquivos("/");
 
-        for (int i = 0; i <= this.contador; i++) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <= contador; i++) {
+                    listarArquivos(diretorios1.get(contador).getAbsolutePath());
+                    contador++;
+                }
 
-            if (!diretorios1.isEmpty()) {
-                // this.listarArquivos(diretorios1.get(i).getAbsolutePath());
-                this.listarArquivosWindows(diretorios1.get(i).getAbsolutePath());
-            } else {
-                this.iniciar();
             }
-            this.contador++;
-        }
+        }).start();
+
+        // for (int i = 0; i <= contador; i++) {
+        //areaImpressao.append("contador " + contador + " diretorios " + diretorios1.get(contador).getAbsolutePath() + "\n");
+        //  if (!diretorios1.isEmpty()) {
+        // this.listarArquivos(diretorios1.get(i).getAbsolutePath());
+        //this.listarArquivos(diretorios1.get(contador).getAbsolutePath());
+        /* } else {
+                System.out.println("diretorio vazio");
+                iniciar();
+            }*/
+        // contador++;
+        // }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
